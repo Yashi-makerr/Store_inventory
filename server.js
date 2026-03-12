@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const productRoutes = require("./routes/ProductRoutes");
+const errorHandler = require("./middleware/errorMiddleware");
 
 const app = express();
 
@@ -14,7 +15,9 @@ mongoose.connect(process.env.MONGO_URL)
 
 app.use("/api", productRoutes);
 
-const PORT = process.env.PORT || 5000;
+app.use(errorHandler);
+
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, ()=>{
  console.log(`Server running on http://localhost:${PORT}`);
